@@ -27,7 +27,7 @@
 }
 
 .calculator_card{
-    width:100%;
+    width:90%;
     max-width: 400px;
     background-color: saddlebrown;
     border-radius: 20px;
@@ -58,7 +58,8 @@
     border-radius: 10px;
     background-color: #e9b567;
     border: none;
-    font-size: 1.5em;
+    cursor:pointer;
+    font-size: 1.2em;
     transition: 0.3s;
 }
 .calculator_buttons button:hover{
@@ -68,4 +69,15 @@
     grid-column:span 2;
     background-color: rgb(190, 116, 62) !important;
     color: antiquewhite;
+}
+
+@media( max-width : 400px ){
+    .calculator_card{
+        width:95%;
+    }
+    button {
+        height : 50px;
+        font-size: 1em;
+    }
+
 }
