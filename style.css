@@ -1,0 +1,71 @@
+.body{
+    background-color: darkkhaki;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    min-height: 100vh;
+    text-align: center;
+    padding-top: 10px;
+}
+
+
+.urbanist-body {
+    color:rgb(82, 4, 50);
+    font-size: x-large;
+  font-family: "Urbanist", serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.comfortaa {
+    font-family: "Comfortaa", serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+}
+
+.calculator_card{
+    width:100%;
+    max-width: 400px;
+    background-color: saddlebrown;
+    border-radius: 20px;
+    box-shadow: 20px 20px 20px rgba(0,0,0,0.2);
+    margin: auto;
+    padding: 20px;
+}
+
+.calculator_display{
+    width: 100%;
+    height: 60px;
+    background-color: burlywood;
+    margin-bottom: 10px;
+    padding: 10px;
+    align-self: center;
+    text-align: right;
+    border-radius: 20px;
+}
+.calculator_buttons{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap:10px;
+}
+
+.calculator_buttons button{
+    width: 100%;
+    height:60px;
+    border-radius: 10px;
+    background-color: #e9b567;
+    border: none;
+    font-size: 1.5em;
+    transition: 0.3s;
+}
+.calculator_buttons button:hover{
+    background-color: rgb(227, 162, 63) !important;
+}
+.equal{
+    grid-column:span 2;
+    background-color: rgb(190, 116, 62) !important;
+    color: antiquewhite;
+}
