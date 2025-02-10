@@ -17,7 +17,7 @@
 </head>
 <body>
     <div class=" urbanist-body body">
-        A simple Calculator
+        A Calculator
         <!-- <div class="scientific_calculator_card">
             
         </div> -->
@@ -56,25 +56,25 @@
     </div>
     <script>
 
-        let normalCalculator  = true;
+        let isScientificCalculator  = true;
 
-        function switchMode(){
-            const scientificButtons = document.querySelectorAll("[scientificButtons='true']");
-            const switch_button = document.getElementById("switch_button");
-            
-            scientificButtons.forEach(button=>{
-                if ( !normalCalculator  ) {
-                    scientificButtons.forEach( button=>button.style.display = "inline-block");
-                    switch_button.textContent = "Press for Normal Calculator";
-                } else {
-                    scientificButtons.forEach(button=>button.style.display = "none");
-                    switch_button.textContent = "Press for Scietific Calculator";
-                }
-                normalCalculator = !normalCalculator;
-                
-            })
-            
-        }
+        function switchMode(event) {
+            event.stopPropagation();
+    const scientificButtons = document.querySelectorAll("[scientificButtons='true']");
+    const switch_button = document.getElementById("switch_button");
+
+    if (isScientificCalculator) {
+        scientificButtons.forEach(button => button.style.display = "inline-block");
+        switch_button.textContent = "Press for Normal Calculator";
+    } else {
+        
+        scientificButtons.forEach(button => button.style.display = "none");
+        switch_button.textContent = "Press for Scientific Calculator";
+    }
+
+    isScientificCalculator = !isScientificCalculator;
+}
+
  
         document.getElementById('switch_button').addEventListener("click",switchMode);
         
