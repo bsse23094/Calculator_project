@@ -18,11 +18,16 @@
 <body>
     <div class=" urbanist-body body">
         A simple Calculator
+        <!-- <div class="scientific_calculator_card">
+            
+        </div> -->
         <div class="calculator_card">
             <div class="calculator_display" id="calculator_display">
                 0 </div>
-                <div class="calculator_buttons">
-                        <button onclick="clearDisplay()">AC</button>
+                <div class="calculator_buttons" id="calculator_buttons">
+
+                    
+                        <!-- <button onclick="clearDisplay()">AC</button>
                         <button onclick="appVal('/')">/</button>
                         <button onclick="appVal('*')">*</button>
                         <button onclick="del()">DEL</button>
@@ -40,14 +45,141 @@
                         <button onclick="appVal('%')">%</button>
                         <button class="equal" onclick="calculateTotal()" >=</button>
                         <button onclick="appVal('0')">0</button>
-                        <button onclick="appVal('.')">.</button>
+                        <button onclick="appVal('.')">.</button> -->
                 </div>
         </div>
 
+        <button class="switch_button" id="switch_button" onclick="switchMode()" >Press for Scientific Calculator</button>
         
+
 
     </div>
     <script>
+
+        let normalCalculator  = true;
+
+        function switchMode(){
+            const scientificButtons = document.querySelectorAll("[scientificButtons='true']");
+            const switch_button = document.getElementById("switch_button");
+            
+            scientificButtons.forEach(button=>{
+                if ( !normalCalculator  ) {
+                    scientificButtons.forEach( button=>button.style.display = "inline-block");
+                    switch_button.textContent = "Press for Normal Calculator";
+                } else {
+                    scientificButtons.forEach(button=>button.style.display = "none");
+                    switch_button.textContent = "Press for Scietific Calculator";
+                }
+                normalCalculator = !normalCalculator;
+                
+            })
+            
+        }
+ 
+        document.getElementById('switch_button').addEventListener("click",switchMode);
+        
+
+        const normalButtonArr = [
+                '7','8','9','/',
+                '4','5','6','*',
+                '1','2','3','-',
+                '0','.','+','AC',
+                'DEL','%','=',
+        ]; 
+
+        const scientificButtons = ['sin' , 'cos' , 'tan' , 'Π',
+                'xʸ','x³','x²','eˣ',
+                'ʸ√x','³√x','√x','ln',
+                '(',')','log','1/x'];
+
+        const buttonArr = [...scientificButtons,...normalButtonArr];        
+
+        let buttonContainer = document.getElementById('calculator_buttons');
+        
+        for ( let element of buttonArr) {
+            let calc_button = document.createElement("button");
+            calc_button.textContent = element;
+
+            if ( scientificButtons.includes(element) ){
+                calc_button.setAttribute('scientificButtons','true');
+                calc_button.style.display = "none";
+            }
+
+            if ( element === '=' ) {
+            equalButton = calc_button;
+            equalButton.classList.add('equal');
+            }
+            calc_button.addEventListener("click",()=>{
+                if ( element === 'AC' ) {
+                    clearDisplay();
+                }
+                else if ( element === 'DEL' ) {
+                    del();
+                }
+                else if ( element === '=' ) {
+                    if ( powerMode ) {
+                        calcPow();
+                    } 
+                    if ( rootMode ) {
+                        calcRoot();
+                    }
+                    else {
+                    calculateTotal();
+                    }
+                }
+                else if ( element === 'Π' ){
+                    pie();
+                }
+                else if ( element === 'x²' ) {
+                    square();
+                }
+                else if ( element === 'x³' ) {
+                    square();
+                }
+                else if ( element === 'xʸ' ) {
+                    power();
+                }
+                else if ( element === '=' ) {
+                    calcPow();
+                    }
+                else if ( element === '³√x' ) {
+                    cubeRoot();
+                }
+                else if ( element === '√x' ) {
+                    squareRoot();
+                }
+                else if ( element === 'ʸ√x' ) {
+                    root();
+                }
+                else if ( element === 'ln' ) {
+                    naturalLog();
+                }
+                else if ( element === 'log' ) {
+                    log();
+                }
+                else if ( element === '1/x' ) {
+                    fraction();
+                }
+                else if ( element === 'sin' ) {
+                    sin();
+                }
+                else if ( element === 'tan' ) {
+                    tan();
+                }
+                else if ( element === 'cos' ) {
+                    cos();
+                }
+                else if ( element === 'eˣ' ) {
+                    exponential();
+                }
+                else{
+                    appVal(element);
+                }
+                
+            })
+            buttonContainer.append(calc_button);
+        }
+
         let display = document.getElementById("calculator_display");
 
         function appVal(val) {
@@ -56,6 +188,115 @@
             } else {
                 display.innerHTML += val;
             }
+        }
+
+        function square(){
+            let square = Math.pow(display.innerHTML , 2);
+            display.textContent = square;
+        }
+
+        function exponential(){
+            let expVal = parseFloat( display.textContent );
+            display.textContent = Math.exp(expVal).toFixed(4);
+        }
+
+        function tan(){
+            let tan = Math.tan(display.innerHTML * Math.PI / 180);
+            display.textContent = tan;
+        }
+
+        function pie(){
+            let pie = display.textContent + Math.PI;
+            display.textContent = pie;
+        }
+
+        function cos(){
+            let cos = Math.cos(display.innerHTML * Math.PI / 180);
+            display.textContent = cos;
+        }
+
+        function sin(){
+            let sin = Math.sin(display.innerHTML * Math.PI / 180);
+            display.textContent = sin;
+        }
+
+        function cube(){
+            let cube = Math.pow(display.textContent , 3);
+            display.textContent = cube;
+        }
+
+        function naturalLog(){
+            let naturalLog = Math.log(display.textContent);
+            display.textContent = "0";
+        }
+
+        function fraction(){
+            let frac_Val = 1 + '/' + display.textContent; 
+            display.textContent = frac_Val;
+            
+        }
+
+        let powBase = null;
+        let powerMode = false;
+        function power(){
+            let currentVal = parseFloat(display.textContent);
+            if ( currentVal != NaN ){
+            powBase = currentVal;
+            powerMode = true;
+            display.textContent = "";
+            }
+        }
+        function calcPow(){
+            let exponent = parseFloat(display.textContent);
+            if ( powBase != NaN && exponent != NaN ) {
+            let result = Math.pow(powBase,exponent);
+            display.textContent = result;
+            powBase = null;
+            powerMode = false;
+            }
+            else {
+                display.textContent = "Error";
+            }
+        }
+
+        let rootBase = null;
+        let rootMode = false;
+        function root(){
+            let currentVal = parseFloat(display.textContent);
+            if ( currentVal != NaN ){
+                rootBase = currentVal;
+                rootMode = true;
+                display.textContent = "";
+            } else {
+                display.textContent = "Error";
+            }
+        }
+
+        function calcRoot(){
+            let radical = parseFloat(display.textContent);
+            if ( radical != NaN && rootBase != NaN ) {
+                let result = Math.pow(rootBase,1/radical);
+                display.textContent = result;
+                rootBase = null;
+                rootMode = false;
+            } else {
+                display.textContent = "Error";
+            }
+        }
+
+        function log(){
+            let log = Math.log10(display.textContent);
+            display.textContent = log;
+        }
+
+        function squareRoot(){
+            let sqrt = Math.sqrt(display.textContent);
+            display.textContent = sqrt;
+        }
+
+        function cubeRoot(){
+            let cubeRoot = Math.pow(display.textContent , 1/3);
+            display.textContent = cubeRoot;
         }
 
         function clearDisplay(){
