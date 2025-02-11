@@ -123,6 +123,10 @@
     background-color: #e9b567;
     border: none;
     cursor:pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
     font-size: 1.2em;
     transition: 0.3s;
     -webkit-text-fill-color: black;
