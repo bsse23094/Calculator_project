@@ -125,12 +125,12 @@
     cursor:pointer;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
+    text-overflow: clip;
     
     font-size: 1.2em;
     transition: 0.3s;
     -webkit-text-fill-color: black;
-    -webkit-text-size-adjust: 100%;
+    -webkit-text-size-adjust: none;
     -webkit-transform: translateZ(0);
     word-spacing: -1px; 
     letter-spacing: -0.5px;
