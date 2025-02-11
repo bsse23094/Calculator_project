@@ -132,6 +132,9 @@
     -webkit-text-fill-color: black;
     -webkit-text-size-adjust: 100%;
     -webkit-transform: translateZ(0);
+    word-spacing: -1px; 
+    letter-spacing: -0.5px;
+    line-height: 1.2; 
     -webkit-transition: background-color 0.3s ease-in-out;
     -moz-transition: background-color 0.3s ease-in-out;
 }
