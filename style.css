@@ -113,28 +113,35 @@
 }
 
 .calculator_buttons button{
-    display: -webkit-box;
-    -webkit-box-flex: 1 ;
+    /* display: -webkit-box;
+    -webkit-box-flex: 1 ; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    
     width: 100%;
     max-width: 80px;
     margin: 0 auto;
-    height:60px;
+
     border-radius: 10px;
     background-color: #e9b567;
     border: none;
     cursor:pointer;
+
     white-space: nowrap;
+    padding: 0px 5px;
     overflow: hidden;
     text-overflow: clip;
     
     font-size: 1.2em;
     transition: 0.3s;
     -webkit-text-fill-color: black;
-    -webkit-text-size-adjust: none;
+    -webkit-text-size-adjust: 100%;
     -webkit-transform: translateZ(0);
     word-spacing: -1px; 
     letter-spacing: -0.5px;
-    line-height: 1.2; 
+    line-height: normal; 
     -webkit-transition: background-color 0.3s ease-in-out;
     -moz-transition: background-color 0.3s ease-in-out;
 }
