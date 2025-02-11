@@ -24,7 +24,9 @@
         <div class="calculator_card">
             <div class="calculator_display" id="calculator_display">
                 0 </div>
-                <div class="calculator_buttons" id="calculator_buttons">
+                <div class="button_container">
+                    <div class="calculator_buttons" id="Scientific_calculator_buttons"></div>
+                <div class="calculator_buttons" id="normal_calculator_buttons">
 
                     
                         <!-- <button onclick="clearDisplay()">AC</button>
@@ -47,28 +49,33 @@
                         <button onclick="appVal('0')">0</button>
                         <button onclick="appVal('.')">.</button> -->
                 </div>
+                
+            </div>
         </div>
 
-        <button class="switch_button" id="switch_button" onclick="switchMode()" >Press for Scientific Calculator</button>
+        <button class="switch_button" id="switch_button" onclick="switchMode()" >Press for Normal Calculator</button>
         
 
 
     </div>
     <script>
 
-        let isScientificCalculator  = true;
+        let isScientificCalculator  = false;
 
         function switchMode(event) {
             event.stopPropagation();
-    const scientificButtons = document.querySelectorAll("[scientificButtons='true']");
+    //const scientificButtons = document.querySelectorAll("[scientificButtons='true']");
+    const scientificButtonContainer = document.getElementById("Scientific_calculator_buttons");
     const switch_button = document.getElementById("switch_button");
 
     if (isScientificCalculator) {
-        scientificButtons.forEach(button => button.style.display = "inline-block");
+        //scientificButtonContainer.forEach(button => button.style.display = "inline-block");
+        scientificButtonContainer.style.display = "grid";
         switch_button.textContent = "Press for Normal Calculator";
     } else {
         
-        scientificButtons.forEach(button => button.style.display = "none");
+        //scientificButtonContainer.forEach(button => button.style.display = "none");
+        scientificButtonContainer.style.display = "none";
         switch_button.textContent = "Press for Scientific Calculator";
     }
 
@@ -94,24 +101,42 @@
 
         const buttonArr = [...scientificButtons,...normalButtonArr];        
 
-        let buttonContainer = document.getElementById('calculator_buttons');
+        let normalButtonContainer = document.getElementById('normal_calculator_buttons');
+        let scientificButtonContainer = document.getElementById('Scientific_calculator_buttons')
         
-        for ( let element of buttonArr) {
+        for ( let element of normalButtonArr) {
             let calc_button = document.createElement("button");
             calc_button.textContent = element;
-
-            if ( scientificButtons.includes(element) ){
-                calc_button.setAttribute('scientificButtons','true');
-                calc_button.style.display = "none";
-            }
-
+            
             if ( element === '=' ) {
             equalButton = calc_button;
             equalButton.classList.add('equal');
             }
-            calc_button.addEventListener("click",()=>{
-                if ( element === 'AC' ) {
+            calc_button.addEventListener("click",()=>calculate(element));
+            normalButtonContainer.append(calc_button);
+        }
+
+        for (const scientificElement of scientificButtons ) {
+            // if ( scientificButtons.includes(scientificElement) ){
+            //     calc_button.setAttribute('scientificButtons','true');
+            //     calc_button.style.display = "none";
+            // }   
+            let calc_button = document.createElement("button");
+            calc_button.textContent = scientificElement;
+           
+            calc_button.addEventListener("click",()=>calculate(element));
+            scientificButtonContainer.append(calc_button);
+        }
+
+            
+            
+        
+
+        function calculate(element){
+            
+            if ( element === 'AC' ) {
                     clearDisplay();
+
                 }
                 else if ( element === 'DEL' ) {
                     del();
@@ -176,9 +201,8 @@
                     appVal(element);
                 }
                 
-            })
-            buttonContainer.append(calc_button);
-        }
+            }
+        
 
         let display = document.getElementById("calculator_display");
 
