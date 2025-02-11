@@ -149,11 +149,11 @@
     }
     .calculator_card{
         width:auto;
-        padding : 20px;
+        padding : 5px;
     }
     .calculator_buttons button {
         height : 50px;
-        max-width: 120px;
+        max-width: 100px;
         height: 50px;
         font-size: 1em;
     }
